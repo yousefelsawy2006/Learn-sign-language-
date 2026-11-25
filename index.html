@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عالم الإشارة</title>
+
+    <style>
+        /* ========== الأساسيات ========== */
+        :root {
+            --primary: #087e8b;
+            --primary-dark: #075b66;
+            --primary-light: #20a4a8;
+            --soft: #e0f5f3;
+            --soft-hover: #bde9e5;
+            --bg: #f1f7fb;
+            --text: #263746;
+            --accent: #ffbf47;
+            --success: #1b7f3b;
+            --error: #c0392b;
+            --radius: 16px;
+            --shadow: 0 4px 16px rgba(8, 126, 139, 0.10);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 18px;
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            direction: rtl;
+            font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* ========== الهيدر ========== */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            text-align: center;
+            padding: 2.4rem 1rem 2.6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before,
+        header::after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        header::before {
+            width: 260px;
+            height: 260px;
+            top: -120px;
+            right: -60px;
+        }
+
+        header::after {
+            width: 200px;
+            height: 200px;
+            bottom: -110px;
+            left: -40px;
+        }
+
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 0.4rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== أدوات الوصول ========== */
+        .accessibility {
+            text-align: center;
+            padding: 0.7rem;
+            background: #ffffff;
+            border-bottom: 1px solid #dbe8ee;
+        }
+
+        .accessibility button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.55rem 1.2rem;
+            margin: 0.2rem;
+            border-radius: 999px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .accessibility button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        /* ========== شريط التنقل ========== */
+        nav {
+            background-color: var(--primary-dark);
+            padding: 0.6rem 0.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        nav a {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin: 0.15rem 0.2rem;
+            padding: 0.4rem 1rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 999px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: #ffe082;
+        }
+
+        /* ========== المحتوى ========== */
+        main {
+            width: 92%;
+            max-width: 1100px;
+            margin: 2rem auto;
+        }
+
+        section {
+            background: white;
+            padding: 2.2rem 1.6rem;
+            margin-bottom: 1.6rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            display: inline-block;
+            padding-bottom: 0.4rem;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        section p {
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        /* ========== الترحيب ========== */
+        .welcome {
+            background: linear-gradient(135deg, #dff5f3, #f0fbfa);
+            padding: 3.2rem 1.5rem;
+        }
+
+        .welcome h2 {
+            font-size: 1.8rem;
+        }
+
+        .main-button {
+            display: inline-block;
+            margin-top: 1.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 2.2rem;
+            text-decoration: none;
+            border-radius: 999px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(8, 126, 139, 0.3);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .main-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== البطاقات ========== */
+        .letters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.6rem;
+        }
+
+        .quiz-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1rem;
+            margin-top: 1.6rem;
+        }
+
+        .letter-card {
+            background: var(--soft);
+            padding: 1.4rem 1rem;
+            border-radius: 14px;
+            text-align: center;
+            border: 2px solid var(--primary);
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+        }
+
+        .letter-card h3 {
+            font-size: 2.1rem;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .letter-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* البطاقات القابلة للنطق */
+        #letters .letter-card,
+        #numbers .letter-card,
+        #words .letter-card {
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .letter-card:hover {
+            background: var(--soft-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 18px rgba(8, 126, 139, 0.18);
+        }
+
+        .letter-card:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        /* ========== الاختبار ========== */
+        #games .letter-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        #games .letter-card button {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.5rem 1.1rem;
+            margin: 0.25rem;
+            border-radius: 10px;
+            font-size: 1.05rem;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        #games .letter-card button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .quiz-result {
+            margin-top: 0.8rem;
+            min-height: 1.8rem;
+            font-weight: bold;
+        }
+
+        .quiz-result.correct {
+            color: var(--success);
+        }
+
+        .quiz-result.wrong {
+            color: var(--error);
+        }
+
+        /* ========== التواصل ========== */
+        #contact form {
+            max-width: 600px;
+            margin: 1.6rem auto 0;
+        }
+
+        #contact input,
+        #contact textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin: 0.5rem 0;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            text-align: right;
+            background: #fbfefe;
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        #contact input:focus,
+        #contact textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 4px rgba(32, 164, 168, 0.25);
+        }
+
+        #contact textarea {
+            min-height: 130px;
+            resize: vertical;
+        }
+
+        #contact button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.2rem;
+            margin-top: 0.5rem;
+            border-radius: 999px;
+            font-size: 1.05rem;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        #contact button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* ========== الفوتر ========== */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 1.6rem 1rem;
+            font-size: 1rem;
+        }
+
+        /* ========== الوصول بالكيبورد ========== */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* ========== الشاشات الصغيرة ========== */
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 1.9rem;
+            }
+
+            section {
+                padding: 1.6rem 1rem;
+            }
+
+            .letters-container {
+                grid-template-columns: repeat(auto-fit, minmax(95px, 1fr));
+                gap: 0.7rem;
+            }
+
+            .letter-card {
+                padding: 1rem 0.5rem;
+            }
+
+            .letter-card h3 {
+                font-size: 1.7rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>عالم الإشارة</h1>
+    <p>نتعلم ونتواصل معاً</p>
+</header>
+
+<div class="accessibility">
+    <button type="button" onclick="increaseFont()">تكبير الخط +</button>
+    <button type="button" onclick="decreaseFont()">تصغير الخط -</button>
+</div>
+
+<nav>
+    <a href="#home">الرئيسية</a>
+    <a href="#letters">الحروف</a>
+    <a href="#numbers">الأرقام</a>
+    <a href="#words">الكلمات</a>
+    <a href="#games">الألعاب</a>
+    <a href="#videos">الفيديوهات</a>
+    <a href="#contact">تواصل معنا</a>
+</nav>
+
+<main>
+
+<section id="home" class="welcome">
+    <h2>أهلاً بك في عالم الإشارة</h2>
+    <p>
+        منصة تعليمية تساعد ذوي الإعاقة السمعية
+        على تعلم لغة الإشارة بطريقة سهلة وممتعة.
+    </p>
+    <a class="main-button" href="#letters">ابدأ التعلم</a>
+</section>
+
+<section id="letters">
+    <h2>الحروف العربية بلغة الإشارة</h2>
+    <p>اختار الحرف اللي عايز تتعلمه.</p>
+
+    <div class="letters-container">
+
+        <div class="letter-card">
+            <h3>أ</h3>
+            <p>حرف الألف</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ب</h3>
+            <p>حرف الباء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ت</h3>
+            <p>حرف التاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ث</h3>
+            <p>حرف الثاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ج</h3>
+            <p>حرف الجيم</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ح</h3>
+            <p>حرف الحاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>خ</h3>
+            <p>حرف الخاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>د</h3>
+            <p>حرف الدال</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ذ</h3>
+            <p>حرف الذال</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ر</h3>
+            <p>حرف الراء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ز</h3>
+            <p>حرف الزاي</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>س</h3>
+            <p>حرف السين</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ش</h3>
+            <p>حرف الشين</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ص</h3>
+            <p>حرف الصاد</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ض</h3>
+            <p>حرف الضاد</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ط</h3>
+            <p>حرف الطاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ظ</h3>
+            <p>حرف الظاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ع</h3>
+            <p>حرف العين</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>غ</h3>
+            <p>حرف الغين</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ف</h3>
+            <p>حرف الفاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ق</h3>
+            <p>حرف القاف</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ك</h3>
+            <p>حرف الكاف</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ل</h3>
+            <p>حرف اللام</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>م</h3>
+            <p>حرف الميم</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ن</h3>
+            <p>حرف النون</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ه</h3>
+            <p>حرف الهاء</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>و</h3>
+            <p>حرف الواو</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ي</h3>
+            <p>حرف الياء</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="numbers">
+    <h2>تعلم الأرقام</h2>
+    <p>تعرف على الأرقام من 0 إلى 10</p>
+
+    <div class="letters-container">
+
+        <div class="letter-card">
+            <h3>0</h3>
+            <p>صفر</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>1</h3>
+            <p>واحد</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>2</h3>
+            <p>اثنان</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>3</h3>
+            <p>ثلاثة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>4</h3>
+            <p>أربعة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>5</h3>
+            <p>خمسة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>6</h3>
+            <p>ستة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>7</h3>
+            <p>سبعة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>8</h3>
+            <p>ثمانية</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>9</h3>
+            <p>تسعة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>10</h3>
+            <p>عشرة</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="words">
+    <h2>الكلمات والجمل اليومية</h2>
+    <p>تعلم أهم الكلمات المستخدمة في حياتنا اليومية</p>
+
+    <div class="letters-container">
+
+        <div class="letter-card">
+            <h3>مرحباً</h3>
+            <p>التحية والترحيب</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>شكراً</h3>
+            <p>تعبير عن الامتنان</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>من فضلك</h3>
+            <p>طلب شيء بأدب</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>نعم</h3>
+            <p>الموافقة</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>لا</h3>
+            <p>الرفض</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>آسف</h3>
+            <p>الاعتذار</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>كيف حالك؟</h3>
+            <p>السؤال عن الحال</p>
+        </div>
+
+        <div class="letter-card">
+            <h3>مع السلامة</h3>
+            <p>الوداع</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="games">
+    <h2>اختبر معلوماتك</h2>
+    <p>اختاري الإجابة الصحيحة لتحصلي على نتيجتك.</p>
+
+    <div class="quiz-container">
+
+        <div class="letter-card">
+            <h3>ما هو حرف الألف؟</h3>
+
+            <button type="button" onclick="checkAnswer(this, false)">ب</button>
+            <button type="button" onclick="checkAnswer(this, true)">أ</button>
+            <button type="button" onclick="checkAnswer(this, false)">ت</button>
+
+            <p class="quiz-result" aria-live="polite"></p>
+        </div>
+
+        <div class="letter-card">
+            <h3>ما الرقم الذي يأتي بعد 4؟</h3>
+
+            <button type="button" onclick="checkAnswer(this, false)">3</button>
+            <button type="button" onclick="checkAnswer(this, true)">5</button>
+            <button type="button" onclick="checkAnswer(this, false)">6</button>
+
+            <p class="quiz-result" aria-live="polite"></p>
+        </div>
+
+    </div>
+</section>
+
+<section id="videos">
+    <h2>فيديوهات تعليمية</h2>
+    <p>شاهد وتعلم لغة الإشارة بطريقة سهلة.</p>
+
+    <div class="letters-container">
+        <div class="letter-card">
+            <h3>فيديوهات تعلم لغة الإشارة</h3>
+            <p>سيتم إضافة فيديوهات تعليمية موثوقة هنا.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2>تواصل معنا</h2>
+    <p>يسعدنا استقبال آرائكم ومقترحاتكم لتطوير عالم الإشارة.</p>
+
+    <form id="contact-form">
+        <input type="text" placeholder="اكتب اسمك" required>
+
+        <input type="email" placeholder="اكتب بريدك الإلكتروني" required>
+
+        <textarea placeholder="اكتب رسالتك هنا" required></textarea>
+
+        <button type="submit">إرسال الرسالة</button>
+    </form>
+</section>
+
+</main>
+
+<footer>
+    <p>عالم الإشارة - التعلم حق للجميع</p>
+</footer>
+
+<script>
+    // ========== تكبير وتصغير الخط ==========
+    let fontSize = 18;
+
+    function applyFontSize() {
+        document.documentElement.style.fontSize = fontSize + "px";
+    }
+
+    function increaseFont() {
+        if (fontSize < 30) {
+            fontSize += 2;
+            applyFontSize();
+        }
+    }
+
+    function decreaseFont() {
+        if (fontSize > 12) {
+            fontSize -= 2;
+            applyFontSize();
+        }
+    }
+
+    // رسالة ترحيب
+    console.log("أهلاً بك في عالم الإشارة");
+
+    // ========== الاختبار ==========
+    function checkAnswer(button, correct) {
+        let result = button.parentElement.querySelector(".quiz-result");
+
+        result.classList.remove("correct", "wrong");
+
+        if (correct) {
+            result.textContent = "إجابة صحيحة! أحسنت";
+            result.classList.add("correct");
+        } else {
+            result.textContent = "إجابة غير صحيحة، حاولي مرة أخرى";
+            result.classList.add("wrong");
+        }
+    }
+
+    // ========== تشغيل صوت الحروف والكلمات ==========
+    function speakText(text) {
+        if (!("speechSynthesis" in window)) {
+            return;
+        }
+
+        let speech = new SpeechSynthesisUtterance(text);
+
+        speech.lang = "ar-EG";
+        speech.rate = 0.8;
+
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(speech);
+    }
+
+    // جعل البطاقة قابلة للنقر وللتشغيل بالكيبورد
+    function makeSpeakable(card, getText) {
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+
+        function play() {
+            let text = getText();
+            if (text) {
+                speakText(text);
+            }
+        }
+
+        card.addEventListener("click", play);
+        card.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                play();
+            }
+        });
+    }
+
+    // أسماء الحروف
+    const letterNames = {
+        "أ": "ألف",
+        "ب": "باء",
+        "ت": "تاء",
+        "ث": "ثاء",
+        "ج": "جيم",
+        "ح": "حاء",
+        "خ": "خاء",
+        "د": "دال",
+        "ذ": "ذال",
+        "ر": "راء",
+        "ز": "زاي",
+        "س": "سين",
+        "ش": "شين",
+        "ص": "صاد",
+        "ض": "ضاد",
+        "ط": "طاء",
+        "ظ": "ظاء",
+        "ع": "عين",
+        "غ": "غين",
+        "ف": "فاء",
+        "ق": "قاف",
+        "ك": "كاف",
+        "ل": "لام",
+        "م": "ميم",
+        "ن": "نون",
+        "ه": "هاء",
+        "و": "واو",
+        "ي": "ياء"
+    };
+
+    // تشغيل صوت جميع الحروف
+    document.querySelectorAll("#letters .letter-card").forEach(function (card) {
+        makeSpeakable(card, function () {
+            let letter = card.querySelector("h3").innerText.trim();
+            return letterNames[letter];
+        });
+    });
+
+    // تشغيل صوت الأرقام
+    document.querySelectorAll("#numbers .letter-card").forEach(function (card) {
+        makeSpeakable(card, function () {
+            return card.querySelector("h3").innerText.trim();
+        });
+    });
+
+    // تشغيل صوت الكلمات والجمل
+    document.querySelectorAll("#words .letter-card").forEach(function (card) {
+        makeSpeakable(card, function () {
+            return card.querySelector("h3").innerText.trim();
+        });
+    });
+
+    // ========== نموذج التواصل ==========
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        alert("شكراً لتواصلك معنا!");
+        event.target.reset();
+    });
+</script>
+
+</body>
+</html>
